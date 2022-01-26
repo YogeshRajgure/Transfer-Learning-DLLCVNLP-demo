@@ -18,3 +18,11 @@ TypeError: main() missing 1 required positional argument: 'params_path'
 [2022-01-26 12:33:11,017: INFO: common]: yaml file: configs/config.yaml loaded successfully
 [2022-01-26 12:33:11,546: INFO: 01_base_model_creation]: >>>>> stage creating base model completed!<<<<<
 
+[2022-01-26 12:44:14,089: INFO: 01_base_model_creation]: 
+********************
+[2022-01-26 12:44:14,089: INFO: 01_base_model_creation]: >>>>> stage creating base model started <<<<<
+[2022-01-26 12:44:14,090: INFO: common]: yaml file: configs/config.yaml loaded successfully
+[2022-01-26 12:44:40,485: INFO: common]: created directory at: artifacts\models
+[2022-01-26 12:44:40,528: INFO: 01_base_model_creation]: base model is saved at artifacts\models\base_model.h5
+[2022-01-26 12:44:40,557: INFO: 01_base_model_creation]: >>>>> stage creating base model completed!<<<<<
+

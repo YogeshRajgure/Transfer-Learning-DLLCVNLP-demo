@@ -15,7 +15,7 @@ import tensorflow as tf
 import io
 
 
-STAGE = "even odd transfer learning" ## <<< change stage name 
+STAGE = "greater than 5 transfer learning" ## <<< change stage name 
 
 logging.basicConfig(
     filename=os.path.join("logs", 'running_logs.log'), 
@@ -24,11 +24,11 @@ logging.basicConfig(
     filemode="a"
     )
 
-def update_even_odd_labels(list_of_labels):
+def update_greater_than_5_labels(list_of_labels):
 
     for idx, label in enumerate(list_of_labels):
-        even_condition = label%2 == 0
-        list_of_labels[idx] = np.where(even_condition, 1, 0)
+        greater_than_5_condition = label > 5
+        list_of_labels[idx] = np.where(greater_than_5_condition, 1, 0)
 
     return list_of_labels
 
@@ -45,7 +45,7 @@ def main(config_path):
     X_valid, X_train = X_train_full[:5000], X_train_full[5000:]
     y_valid, y_train = y_train_full[:5000], y_train_full[5000:]
 
-    y_train_bin, y_test_bin, y_valid_bin = update_even_odd_labels([y_train, y_test, y_valid])
+    y_train_bin, y_test_bin, y_valid_bin = update_greater_than_5_labels([y_train, y_test, y_valid])
 
     ## set the seeds
     seed = 2021 # we can also get seed from config
@@ -105,7 +105,7 @@ def main(config_path):
     
     ## save the model
     model_dir_path = os.path.join("artifacts", "models")
-    model_file_path = os.path.join(model_dir_path,"even_odd_model.h5")
+    model_file_path = os.path.join(model_dir_path,"greater_than_5_model.h5")
     new_model.save(model_file_path)
 
     logging.info(f"new model is saved at {model_file_path}")

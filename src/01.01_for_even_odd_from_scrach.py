@@ -1,21 +1,18 @@
 import argparse
-from email.mime import base
 import os
 from pickletools import optimize
 from tabnanny import verbose
 from unicodedata import name
 import numpy as np
-from tensorboard import summary
 from tensorflow.python.eager.monitoring import Metric
 from tqdm import tqdm
 import logging
 from src.utils.common import read_yaml, create_directories
-import random
-import tensorflow as tf
 import io
+import tensorflow as tf
 
 
-STAGE = "even odd transfer learning" ## <<< change stage name 
+STAGE = "creating odd even base model" ## <<< change stage name 
 
 logging.basicConfig(
     filename=os.path.join("logs", 'running_logs.log'), 
@@ -32,7 +29,6 @@ def update_even_odd_labels(list_of_labels):
 
     return list_of_labels
 
-
 def main(config_path):
     ## read config files
     config = read_yaml(config_path)
@@ -47,56 +43,44 @@ def main(config_path):
 
     y_train_bin, y_test_bin, y_valid_bin = update_even_odd_labels([y_train, y_test, y_valid])
 
+
     ## set the seeds
     seed = 2021 # we can also get seed from config
     tf.random.set_seed(seed)
     np.random.seed(seed)
 
-   ## log our model summary information in logs
+    ## define layers
+    LAYERS = [
+            tf.keras.layers.Flatten(input_shape=[28,28]),
+            tf.keras.layers.Dense(300, name="hidden_layer_1"),  # tf.keras.layers.Dense(300, activation="LeakyReLU", name="hidden_layer_1")
+            tf.keras.layers.LeakyReLU(), # this is an alterbative way
+            tf.keras.layers.Dense(100, name="hidden_layer_2"),
+            tf.keras.layers.LeakyReLU(),
+            tf.keras.layers.Dense(10, activation="softmax", name="output_layer")
+        ]
+
+    ## define the model and compile it
+    model = tf.keras.models.Sequential(LAYERS)
+
+    LOSS = "sparse_categorical_crossentropy"
+    OPTIMIZER = tf.keras.optimizers.SGD(learning_rate=1e-3) # we can also just write "SGD" if we are fine with default learning rate
+    METRICS = ["accuracy"]
+
+    model.compile(loss=LOSS, optimizer=OPTIMIZER, metrics=METRICS)
+
+    ## log our model summary information in logs
     def _log_model_summary(model):
         with io.StringIO() as stream:
             model.summary(print_fn=lambda x: stream.write(f"{x}\n"))
             summary_str = stream.getvalue()
         return summary_str
 
-
-    ## load the base model
-    base_model_path = os.path.join("artifacts","models","base_model.h5")
-    base_model = tf.keras.models.load_model(base_model_path)
     ## model.summary()
-    logging.info(f"{STAGE} model summary: \n{_log_model_summary(base_model)}")
-
-
-    ## define layers
-    # layers are already defined in the base model
-    # here we eill have to freeze weights of previous layers and added new trainable layers over it
-
-    ## freeze the weights
-    for layer in base_model.layers[:-1]: # -1 beacuse we dont want output layer as we will add new output layer
-        print(f"trainable statue of {layer.name} before : {layer.trainable}")
-        layer.trainable = False
-        print(f"trainable statue of {layer.name} after  : {layer.trainable}")
-
-
-    base_layer = base_model.layers[:-1]
-    # define the model and compile it
-    new_model = tf.keras.models.Sequential(base_layer)
-    new_model.add(
-        tf.keras.layers.Dense(2, activation="softmax", name="output_layer")
-    )
-
-    ## model.summary()
-    logging.info(f"{STAGE} model summary: \n{_log_model_summary(new_model)}")
-
-    LOSS = "sparse_categorical_crossentropy"
-    OPTIMIZER = tf.keras.optimizers.SGD(learning_rate=1e-3) # we can also just write "SGD" if we are fine with default learning rate
-    METRICS = ["accuracy"]
-
-    new_model.compile(loss=LOSS, optimizer=OPTIMIZER, metrics=METRICS)
+    logging.info(f"base model summary: \n{_log_model_summary(model)}")
 
 
     ## train the model 
-    history = new_model.fit(X_train,
+    history = model.fit(X_train,
                         y_train_bin,
                         epochs=10,
                         validation_data=(X_valid, y_valid_bin),
@@ -105,11 +89,13 @@ def main(config_path):
     
     ## save the model
     model_dir_path = os.path.join("artifacts", "models")
-    model_file_path = os.path.join(model_dir_path,"even_odd_model.h5")
-    new_model.save(model_file_path)
+    create_directories([model_dir_path])
 
-    logging.info(f"new model is saved at {model_file_path}")
-    logging.info(f"evaluation metrics {new_model.evaluate(X_test, y_test_bin)}")
+    model_file_path = os.path.join(model_dir_path,"base_odd_even_from_scrach_model.h5")
+    model.save(model_file_path)
+
+    logging.info(f"odd_even base model is saved at {model_file_path}")
+    logging.info(f"evaluation metrics {model.evaluate(X_test, y_test_bin)}")
 
 
 
@@ -126,7 +112,7 @@ if __name__ == '__main__':
         main(config_path=parsed_args.config)
         logging.info(f">>>>> stage {STAGE} completed!<<<<<\n")
         for i in range(5):
-            logging.info(f"\n")
+            logging.info("\n")
     except Exception as e:
         logging.exception(e)
         raise e

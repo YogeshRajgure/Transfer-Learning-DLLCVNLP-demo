@@ -52,3 +52,146 @@ _________________________________________________________________
 [2022-01-26 14:27:43,066: INFO: 02_even_odd_transfer_learning]: evaluation metrics [0.29125913977622986, 0.8797000050544739]
 [2022-01-26 14:27:43,099: INFO: 02_even_odd_transfer_learning]: >>>>> stage even odd transfer learning completed!<<<<<
 
+[2022-01-26 14:36:38,168: INFO: 03_greater_than_5_transfer_learning_from_base]: 
+********************
+[2022-01-26 14:36:38,168: INFO: 03_greater_than_5_transfer_learning_from_base]: >>>>> stage greater than 5 transfer learning started <<<<<
+[2022-01-26 14:36:38,169: INFO: common]: yaml file: configs/config.yaml loaded successfully
+[2022-01-26 14:36:38,750: INFO: 03_greater_than_5_transfer_learning_from_base]: greater than 5 transfer learning model summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten (Flatten)           (None, 784)               0         
+                                                                 
+ hidden_layer_1 (Dense)      (None, 300)               235500    
+                                                                 
+ leaky_re_lu (LeakyReLU)     (None, 300)               0         
+                                                                 
+ hidden_layer_2 (Dense)      (None, 100)               30100     
+                                                                 
+ leaky_re_lu_1 (LeakyReLU)   (None, 100)               0         
+                                                                 
+ output_layer (Dense)        (None, 10)                1010      
+                                                                 
+=================================================================
+Total params: 266,610
+Trainable params: 266,610
+Non-trainable params: 0
+_________________________________________________________________
+
+[2022-01-26 14:36:38,777: INFO: 03_greater_than_5_transfer_learning_from_base]: greater than 5 transfer learning model summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten (Flatten)           (None, 784)               0         
+                                                                 
+ hidden_layer_1 (Dense)      (None, 300)               235500    
+                                                                 
+ leaky_re_lu (LeakyReLU)     (None, 300)               0         
+                                                                 
+ hidden_layer_2 (Dense)      (None, 100)               30100     
+                                                                 
+ leaky_re_lu_1 (LeakyReLU)   (None, 100)               0         
+                                                                 
+ output_layer (Dense)        (None, 2)                 202       
+                                                                 
+=================================================================
+Total params: 265,802
+Trainable params: 202
+Non-trainable params: 265,600
+_________________________________________________________________
+
+[2022-01-26 14:36:55,465: INFO: 03_greater_than_5_transfer_learning_from_base]: new model is saved at artifacts\models\greater_than_5_model.h5
+[2022-01-26 14:36:55,863: INFO: 03_greater_than_5_transfer_learning_from_base]: evaluation metrics [0.3233989179134369, 0.8700000047683716]
+[2022-01-26 14:36:55,894: INFO: 03_greater_than_5_transfer_learning_from_base]: >>>>> stage greater than 5 transfer learning completed!<<<<<
+
+[2022-01-26 14:36:55,894: INFO: 03_greater_than_5_transfer_learning_from_base]: 
+[2022-01-26 14:36:55,894: INFO: 03_greater_than_5_transfer_learning_from_base]: 
+[2022-01-26 14:36:55,894: INFO: 03_greater_than_5_transfer_learning_from_base]: 
+[2022-01-26 14:36:55,894: INFO: 03_greater_than_5_transfer_learning_from_base]: 
+[2022-01-26 14:36:55,894: INFO: 03_greater_than_5_transfer_learning_from_base]: 
+[2022-01-26 14:51:25,385: INFO: 01.01_for_even_odd_from_scrach]: 
+********************
+[2022-01-26 14:51:25,386: INFO: 01.01_for_even_odd_from_scrach]: >>>>> stage creating base model started <<<<<
+[2022-01-26 14:51:25,386: INFO: common]: yaml file: configs/config.yaml loaded successfully
+[2022-01-26 14:51:25,865: INFO: 01.01_for_even_odd_from_scrach]: base model summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten (Flatten)           (None, 784)               0         
+                                                                 
+ hidden_layer_1 (Dense)      (None, 300)               235500    
+                                                                 
+ leaky_re_lu (LeakyReLU)     (None, 300)               0         
+                                                                 
+ hidden_layer_2 (Dense)      (None, 100)               30100     
+                                                                 
+ leaky_re_lu_1 (LeakyReLU)   (None, 100)               0         
+                                                                 
+ output_layer (Dense)        (None, 10)                1010      
+                                                                 
+=================================================================
+Total params: 266,610
+Trainable params: 266,610
+Non-trainable params: 0
+_________________________________________________________________
+
+[2022-01-26 14:51:48,078: INFO: common]: created directory at: artifacts\models
+[2022-01-26 14:51:48,092: INFO: 01.01_for_even_odd_from_scrach]: base model is saved at artifacts\models\base_odd_even_from_scrach_model.h5
+[2022-01-26 14:51:48,530: INFO: 01.01_for_even_odd_from_scrach]: evaluation metrics [0.18014712631702423, 0.9369999766349792]
+[2022-01-26 14:51:48,561: INFO: 01.01_for_even_odd_from_scrach]: >>>>> stage creating base model completed!<<<<<
+
+[2022-01-26 14:51:48,562: INFO: 01.01_for_even_odd_from_scrach]: 
+
+[2022-01-26 14:51:48,562: INFO: 01.01_for_even_odd_from_scrach]: 
+
+[2022-01-26 14:51:48,562: INFO: 01.01_for_even_odd_from_scrach]: 
+
+[2022-01-26 14:51:48,562: INFO: 01.01_for_even_odd_from_scrach]: 
+
+[2022-01-26 14:51:48,562: INFO: 01.01_for_even_odd_from_scrach]: 
+
+[2022-01-26 14:52:09,825: INFO: 01.01_for_even_odd_from_scrach]: 
+********************
+[2022-01-26 14:52:09,825: INFO: 01.01_for_even_odd_from_scrach]: >>>>> stage creating odd even base model started <<<<<
+[2022-01-26 14:52:09,826: INFO: common]: yaml file: configs/config.yaml loaded successfully
+[2022-01-26 14:52:10,326: INFO: 01.01_for_even_odd_from_scrach]: base model summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ flatten (Flatten)           (None, 784)               0         
+                                                                 
+ hidden_layer_1 (Dense)      (None, 300)               235500    
+                                                                 
+ leaky_re_lu (LeakyReLU)     (None, 300)               0         
+                                                                 
+ hidden_layer_2 (Dense)      (None, 100)               30100     
+                                                                 
+ leaky_re_lu_1 (LeakyReLU)   (None, 100)               0         
+                                                                 
+ output_layer (Dense)        (None, 10)                1010      
+                                                                 
+=================================================================
+Total params: 266,610
+Trainable params: 266,610
+Non-trainable params: 0
+_________________________________________________________________
+
+[2022-01-26 14:52:31,713: INFO: common]: created directory at: artifacts\models
+[2022-01-26 14:52:31,728: INFO: 01.01_for_even_odd_from_scrach]: odd_even base model is saved at artifacts\models\base_odd_even_from_scrach_model.h5
+[2022-01-26 14:52:32,227: INFO: 01.01_for_even_odd_from_scrach]: evaluation metrics [0.18014712631702423, 0.9369999766349792]
+[2022-01-26 14:52:32,260: INFO: 01.01_for_even_odd_from_scrach]: >>>>> stage creating odd even base model completed!<<<<<
+
+[2022-01-26 14:52:32,260: INFO: 01.01_for_even_odd_from_scrach]: 
+
+[2022-01-26 14:52:32,260: INFO: 01.01_for_even_odd_from_scrach]: 
+
+[2022-01-26 14:52:32,260: INFO: 01.01_for_even_odd_from_scrach]: 
+
+[2022-01-26 14:52:32,260: INFO: 01.01_for_even_odd_from_scrach]: 
+
+[2022-01-26 14:52:32,260: INFO: 01.01_for_even_odd_from_scrach]: 
+

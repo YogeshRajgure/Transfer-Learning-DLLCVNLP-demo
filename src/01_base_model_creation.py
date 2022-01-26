@@ -1,6 +1,7 @@
 import argparse
 import os
 from pickletools import optimize
+from tabnanny import verbose
 from unicodedata import name
 import numpy as np
 from tensorflow.python.eager.monitoring import Metric
@@ -41,8 +42,8 @@ def main(config_path):
     ## define layers
     LAYERS = [
             tf.keras.layers.Flatten(input_shape=[28,28]),
-            tf.keras.layers.Dense(300, name="hidden_layer_1"),
-            tf.keras.layers.LeakyReLU(),
+            tf.keras.layers.Dense(300, name="hidden_layer_1"),  # tf.keras.layers.Dense(300, activation="LeakyReLU", name="hidden_layer_1")
+            tf.keras.layers.LeakyReLU(), # this is an alterbative way
             tf.keras.layers.Dense(100, name="hidden_layer_2"),
             tf.keras.layers.LeakyReLU(),
             tf.keras.layers.Dense(10, activation="softmax", name="output_layer")
@@ -58,6 +59,26 @@ def main(config_path):
     model.compile(loss=LOSS, optimizer=OPTIMIZER, metrics=METRICS)
 
     model.summary()
+
+    ## train the model 
+    history = model.fit(X_train,
+                        y_train,
+                        epochs=10,
+                        validation_data=(X_valid, y_valid),
+                        verbose=2
+                        )
+    
+    ## save the model
+    model_dir_path = os.path.join("artifacts", "models")
+    create_directories([model_dir_path])
+
+    model_file_path = os.path.join(model_dir_path,"base_model.h5")
+    model.save(model_file_path)
+
+    logging.info(f"base model is saved at {model_file_path}")
+    logging.info(f"evaluation metrics {model.evaluate(X_test, y_test)}")
+
+
 
 
 
